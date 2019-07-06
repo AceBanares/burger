@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link href="css/nes.css" rel="stylesheet" />
+  </head>
+  <body>
+    <button id="begin" type="button" class="nes-btn is-primary">
+      Restart
+    </button>
+    <aside>
+      <!-- <div id="layers" class="choices">
+        <button class="nes-btn" data-choice="single">
+          <div class="food top-bun"></div>
+          Single
+          <div class="food bottom-bun"></div>
+        </button>
+        <button class="nes-btn" data-choice="double">
+          <div class="food top-bun"></div>
+          Double
+          <div class="food bottom-bun"></div>
+        </button>
+        <button class="nes-btn" data-choice="triple">
+          <div class="food top-bun"></div>
+          Triple
+          <div class="food bottom-bun"></div>
+        </button>
+      </div> -->
+
+      <div id="meat" class="choices">
+        <button class="nes-btn" data-choice="beef">
+          Beef
+          <div class="food beef"></div>
+        </button>
+        <button class="nes-btn" data-choice="egg">
+          Egg
+          <div class="food egg"></div>
+        </button>
+      </div>
+
+      <div id="sauce" class="choices">
+        <button class="nes-btn" data-choice="ketchup">
+          Ketchup
+          <div class="food ketchup"></div>
+        </button>
+        <button class="nes-btn" data-choice="mustard">
+          Mustard
+          <div class="food mustard"></div>
+        </button>
+      </div>
+
+      <div id="umami" class="choices">
+        <button class="nes-btn" data-choice="cheese">
+          Cheese
+          <div class="food cheese"></div>
+        </button>
+        <button class="nes-btn" data-choice="pickles">
+          Pickles
+          <div class="food pickles"></div>
+        </button>
+      </div>
+
+      <div id="juicy" class="choices">
+        <button class="nes-btn" data-choice="cucumber">
+          Cucumber
+          <div class="food cucumber"></div>
+        </button>
+        <button class="nes-btn" data-choice="tomato">
+          Tomato
+          <div class="food tomato"></div>
+        </button>
+      </div>
+
+      <div id="crunchy" class="choices">
+          <button class="nes-btn" data-choice="onion">
+            Onion
+            <div class="food onion"></div>
+          </button>
+          <button class="nes-btn" data-choice="lettuce">
+            Lettuce
+            <div class="food lettuce"></div>
+          </button>
+        </div>
+
+    </aside>
+    <main class="nes-container with-title is-centered">
+      <p class="title">Ingredients</p>
+      <ul class="food top-bun"></ul>
+      <ul>
+        <li class="food beef" data-ingredient="beef"></li>
+        <li class="food egg" data-ingredient="egg"></li>
+        <li class="food ketchup" data-ingredient="ketchup"></li>
+        <li class="food mustard" data-ingredient="mustard"></li>
+        <li class="food cheese" data-ingredient="cheese"></li>
+        <li class="food pickles" data-ingredient="pickles"></li>
+        <li class="food cucumber" data-ingredient="cucumber"></li>
+        <li class="food tomato" data-ingredient="tomato"></li>
+        <li class="food onion" data-ingredient="onion"></li>
+        <li class="food lettuce" data-ingredient="lettuce"></li>
+      </ul>
+      <ul class="food bottom-bun"></ul>
+      <!-- display picture of burger being built, using sprite image splash.png -->
+    </main>
+    <section id="order" class="nes-container with-title is-centered">
+      <p class="title">Order</p>
+      <!-- display text of order here -->
+    </section>
+    <script src="js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+  </body>
+</html>

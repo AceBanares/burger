@@ -1,0 +1,30 @@
+x top	y top	x bot	y bot		width	height		description
+11	16	123	60		112	44		top-bun
+13	72	121	110		108	38		pineapple
+16	135	119	182		103	47		beef-steak (beef)
+12	204	117	238		105	34		pickled-cucumber (pickles)
+12	267	120	302		108	35		paprika
+
+152	17	264	58		112	41		ketchup
+148	65	262	100		114	34		lettuce
+156	115	255	149		99	34		bacon
+154	164	264	206		110	42		tomato
+154	212	257	252		103	40		cheese
+148	271	264	304		116	33		mushroom
+
+300	18	405	56		105	38		mustard
+300	67	404	94		104	27		cucumber
+302	116	405	148		103	32		onion-rings
+302	165	409	200		107	35		onion
+298	214	412	260		114	46		arugula (rocket)
+302	263	407	308		105	45		chicken
+
+421	24	530	53		109	29		pepperoni (chorizo)
+423	72	527	98		104	26		olives-green
+424	123	525	145		101	22		olives-black
+431	172	531	204		100	32		egg
+427	221	537	262		110	41		salmon
+429	270	541	310		112	40		bottom-bun
+
+					116	47		max XY
+					99	22		min XY
