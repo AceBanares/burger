@@ -12,7 +12,7 @@ const btnListen = document.querySelector("#listen");
 // will store all individual Ingredient objects in this array called ingredients
 const ingredients = [];
 
-let listenFlag = true;
+let listenFlag, isSupported;
 
 /* Constructor Function
 -------------------------------------------------- */
@@ -93,30 +93,34 @@ SpeechRecognition =
 
 if ("SpeechRecognition" in window) {
   console.log("Speech recognition API supported");
-
-  const recognition = new SpeechRecognition();
-  
-  recognition.interimResults = false;
-  recognition.lang = "en-US";
-  
-  recognition.addEventListener("result", e => {
-    let transcript = e.results[0][0].transcript;
-  
-    console.log(`I heard: ${transcript}`);
-  
-    btnIngredients.forEach(btnIngredient => {
-      let choice = btnIngredient.dataset.choice;
-      let category = btnIngredient.parentNode.id;
-      if (transcript.includes(choice)) {
-        buildBurger(choice, category, false);
-      }
-    });
-  });
+  isSupported = true;
+  listenFlag = true;
 } else {
   console.log("Speech recognition API not supported");
+  isSupported = false;
 }
 
+const recognition = new SpeechRecognition();
+
+recognition.interimResults = false;
+recognition.lang = "en-US";
+
+recognition.addEventListener("result", e => {
+  let transcript = e.results[0][0].transcript;
+
+  console.log(`I heard: ${transcript}`);
+
+  btnIngredients.forEach(btnIngredient => {
+    let choice = btnIngredient.dataset.choice;
+    let category = btnIngredient.parentNode.id;
+    if (transcript.includes(choice)) {
+      buildBurger(choice, category, false);
+    }
+  });
+});
+
 function listenToggle() {
+  if(isSupported) {
   if (listenFlag) {
     // use speech recognition to 'type' your essay
 
@@ -132,4 +136,8 @@ function listenToggle() {
   }
 
   listenFlag = !listenFlag;
+} else {
+  console.log("Speech recognition API not supported");
+}
+
 }
