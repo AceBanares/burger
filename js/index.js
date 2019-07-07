@@ -1,15 +1,18 @@
 const btnBegin = document.querySelector("#begin");
-const btnIngredients = [...document.querySelectorAll(".choices")];
+const btnIngredients = [...document.querySelectorAll("aside button")];
 const frmOrder = document.querySelector("#order");
 const frmIngredients = [...document.querySelectorAll("li")];
+const btnListen = document.querySelector("#listen");
 
-const coords = {
-  "//": "vertical coordinate of the middle column where food will animate in",
-  y: 600
-};
+// const coords = {
+//   "//": "vertical coordinate of the middle column where food will animate in",
+//   y: 600
+// };
 
 // will store all individual Ingredient objects in this array called ingredients
 const ingredients = [];
+
+let listenFlag = true;
 
 /* Constructor Function
 -------------------------------------------------- */
@@ -19,6 +22,18 @@ class Ingredient {
     this.node = node;
   }
 }
+
+btnListen.addEventListener("click", listenToggle);
+
+btnBegin.addEventListener("click", restart);
+
+btnIngredients.map(btnIngredient =>
+  btnIngredient.addEventListener("click", buildBurger)
+);
+
+frmIngredients.map(
+  frmIngredient => (frmIngredient.style.visibility = "hidden")
+);
 
 function restart() {
   let synth = window.speechSynthesis;
@@ -38,19 +53,13 @@ function restart() {
   console.clear();
 }
 
-btnBegin.addEventListener("click", restart);
-
-btnIngredients.map(btnIngredient =>
-  btnIngredient.addEventListener("click", buildBurger)
-);
-
-frmIngredients.map(
-  frmIngredient => (frmIngredient.style.visibility = "hidden")
-);
-
 // this function will store the ingredient pressed into the array ingredients
-function buildBurger(e) {
-  choice = e.target.dataset.choice;
+function buildBurger(choice, category, manual=true) {
+  
+  if(manual) {
+    choice = this.dataset.choice
+    category = this.parentNode.id
+  }
 
   if (
     !ingredients.some((ingredient, i) => {
@@ -63,7 +72,7 @@ function buildBurger(e) {
       }
     })
   ) {
-    ingredients.push(new Ingredient(choice, this.id));
+    ingredients.push(new Ingredient(choice, category));
     document.querySelector(`[data-ingredient=${choice}]`).style.visibility =
       "visible";
     frmOrder.insertAdjacentHTML(
@@ -71,16 +80,15 @@ function buildBurger(e) {
       `<div id=${choice}>${choice}</div>`
     );
   }
-  showBurger();
+  // showBurger();
 }
 
 // this function will show the pre-built burger
-function showBurger() {
-  console.clear();
-  ingredients.forEach(ingredient => console.log(ingredient.name));
-}
+// function showBurger() {
+//   // console.clear();
+//   ingredients.forEach(ingredient => console.log(ingredient.name));
+// }
 
-// use speech recognition to 'type' your essay
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -91,20 +99,33 @@ recognition.lang = "en-US";
 
 recognition.addEventListener("result", e => {
   let transcript = e.results[0][0].transcript;
-  console.log(transcript);
 
-  //           switch (transcript) {
-  //             case 'double double':
-  //               essay.insertAdjacentHTML('beforeEnd', `<p>2 Milk</p><p>2 Sugar</p>`)
-  //               // expected output: "Mangoes and papayas are $2.79 a pound."
-  //               break;
+  console.log(`I heard: ${transcript}`);
 
-  // }
+  btnIngredients.forEach(btnIngredient => {
+    let choice = btnIngredient.dataset.choice;
+    let category = btnIngredient.parentNode.id;
+    if (transcript.includes(choice)) {
+      buildBurger(choice, category, false);
+    } 
+  });
 
-  // essay.insertAdjacentHTML('beforeEnd', `<p>${transcript}</p>`)
 });
-recognition.addEventListener("end", recognition.start);
 
-recognition.start();
+function listenToggle() {
+  if (listenFlag) {
+    // use speech recognition to 'type' your essay
 
-// Make it so that if user says 'D final answer', window alerts us 'D was chosen'
+    recognition.addEventListener("end", recognition.start);
+    btnListen.textContent = "Listen ON";
+    recognition.start();
+
+    // Make it so that if user says 'D final answer', window alerts us 'D was chosen'
+  } else {
+    recognition.removeEventListener("end", recognition.start);
+    btnListen.textContent = "Listen OFF";
+    recognition.stop();
+  }
+
+  listenFlag = !listenFlag;
+}

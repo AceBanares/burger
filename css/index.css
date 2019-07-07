@@ -112,7 +112,6 @@ body * {
   background: url("../img/splash.png") -429px -270px;
 }
 
-
 main {
   border: 2px dotted green;
   width: 200px;
@@ -135,7 +134,12 @@ ul {
   margin: 0px;
 }
 
-/* li {
-  margin: 2px;
-} */
+nav {
+  display: flex !important;
+  flex-direction: column;
+  max-width: 100px;
+}
 
+nav button {
+  flex-grow: 1;
+}

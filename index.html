@@ -9,28 +9,16 @@
     <link href="css/nes.css" rel="stylesheet" />
   </head>
   <body>
-    <button id="begin" type="button" class="nes-btn is-primary">
-      Restart
-    </button>
-    <aside>
-      <!-- <div id="layers" class="choices">
-        <button class="nes-btn" data-choice="single">
-          <div class="food top-bun"></div>
-          Single
-          <div class="food bottom-bun"></div>
-        </button>
-        <button class="nes-btn" data-choice="double">
-          <div class="food top-bun"></div>
-          Double
-          <div class="food bottom-bun"></div>
-        </button>
-        <button class="nes-btn" data-choice="triple">
-          <div class="food top-bun"></div>
-          Triple
-          <div class="food bottom-bun"></div>
-        </button>
-      </div> -->
+    <nav>
+      <button id="begin" type="button" class="nes-btn is-primary">
+        Restart
+      </button>
+      <button id="listen" type="button" class="nes-btn is-primary">
+        Listen OFF   
+      </button>
+    </nav>
 
+    <aside>
       <div id="meat" class="choices">
         <button class="nes-btn" data-choice="beef">
           Beef
@@ -76,17 +64,17 @@
       </div>
 
       <div id="crunchy" class="choices">
-          <button class="nes-btn" data-choice="onion">
-            Onion
-            <div class="food onion"></div>
-          </button>
-          <button class="nes-btn" data-choice="lettuce">
-            Lettuce
-            <div class="food lettuce"></div>
-          </button>
-        </div>
-
+        <button class="nes-btn" data-choice="onion">
+          Onion
+          <div class="food onion"></div>
+        </button>
+        <button class="nes-btn" data-choice="lettuce">
+          Lettuce
+          <div class="food lettuce"></div>
+        </button>
+      </div>
     </aside>
+
     <main class="nes-container with-title is-centered">
       <p class="title">Ingredients</p>
       <ul class="food top-bun"></ul>
