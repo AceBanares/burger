@@ -93,28 +93,28 @@ SpeechRecognition =
 
 if ("SpeechRecognition" in window) {
   console.log("Speech recognition API supported");
+
+  const recognition = new SpeechRecognition();
+  
+  recognition.interimResults = false;
+  recognition.lang = "en-US";
+  
+  recognition.addEventListener("result", e => {
+    let transcript = e.results[0][0].transcript;
+  
+    console.log(`I heard: ${transcript}`);
+  
+    btnIngredients.forEach(btnIngredient => {
+      let choice = btnIngredient.dataset.choice;
+      let category = btnIngredient.parentNode.id;
+      if (transcript.includes(choice)) {
+        buildBurger(choice, category, false);
+      }
+    });
+  });
 } else {
   console.log("Speech recognition API not supported");
 }
-
-const recognition = new SpeechRecognition();
-
-recognition.interimResults = false;
-recognition.lang = "en-US";
-
-recognition.addEventListener("result", e => {
-  let transcript = e.results[0][0].transcript;
-
-  console.log(`I heard: ${transcript}`);
-
-  btnIngredients.forEach(btnIngredient => {
-    let choice = btnIngredient.dataset.choice;
-    let category = btnIngredient.parentNode.id;
-    if (transcript.includes(choice)) {
-      buildBurger(choice, category, false);
-    }
-  });
-});
 
 function listenToggle() {
   if (listenFlag) {
