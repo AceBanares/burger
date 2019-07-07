@@ -88,56 +88,53 @@ function buildBurger(choice, category, manual = true) {
 //   ingredients.forEach(ingredient => console.log(ingredient.name));
 // }
 
-SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
 
 if ("SpeechRecognition" in window) {
   console.log("Speech recognition API supported");
   isSupported = true;
   listenFlag = true;
+  recognition.interimResults = false;
+  recognition.lang = "en-US";
+  
+  recognition.addEventListener("result", e => {
+    let transcript = e.results[0][0].transcript;
+  
+    console.log(`I heard: ${transcript}`);
+  
+    btnIngredients.forEach(btnIngredient => {
+      let choice = btnIngredient.dataset.choice;
+      let category = btnIngredient.parentNode.id;
+      if (transcript.includes(choice)) {
+        buildBurger(choice, category, false);
+      }
+    });
+  });
 } else {
   console.log("Speech recognition API not supported");
   isSupported = false;
 }
 
-const recognition = new SpeechRecognition();
-
-recognition.interimResults = false;
-recognition.lang = "en-US";
-
-recognition.addEventListener("result", e => {
-  let transcript = e.results[0][0].transcript;
-
-  console.log(`I heard: ${transcript}`);
-
-  btnIngredients.forEach(btnIngredient => {
-    let choice = btnIngredient.dataset.choice;
-    let category = btnIngredient.parentNode.id;
-    if (transcript.includes(choice)) {
-      buildBurger(choice, category, false);
-    }
-  });
-});
-
 function listenToggle() {
-  if(isSupported) {
-  if (listenFlag) {
-    // use speech recognition to 'type' your essay
+  if (isSupported) {
+    if (listenFlag) {
+      // use speech recognition to 'type' your essay
 
-    recognition.addEventListener("end", recognition.start);
-    btnListen.textContent = "Listen ON";
-    recognition.start();
+      recognition.addEventListener("end", recognition.start);
+      btnListen.textContent = "Listen ON";
+      recognition.start();
 
-    // Make it so that if user says 'D final answer', window alerts us 'D was chosen'
+      // Make it so that if user says 'D final answer', window alerts us 'D was chosen'
+    } else {
+      recognition.removeEventListener("end", recognition.start);
+      btnListen.textContent = "Listen OFF";
+      recognition.stop();
+    }
+
+    listenFlag = !listenFlag;
   } else {
-    recognition.removeEventListener("end", recognition.start);
-    btnListen.textContent = "Listen OFF";
-    recognition.stop();
+    console.log("Speech recognition API not supported");
   }
-
-  listenFlag = !listenFlag;
-} else {
-  console.log("Speech recognition API not supported");
-}
-
 }
