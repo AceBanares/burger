@@ -54,11 +54,10 @@ function restart() {
 }
 
 // this function will store the ingredient pressed into the array ingredients
-function buildBurger(choice, category, manual=true) {
-  
-  if(manual) {
-    choice = this.dataset.choice
-    category = this.parentNode.id
+function buildBurger(choice, category, manual = true) {
+  if (manual) {
+    choice = this.dataset.choice;
+    category = this.parentNode.id;
   }
 
   if (
@@ -89,8 +88,14 @@ function buildBurger(choice, category, manual=true) {
 //   ingredients.forEach(ingredient => console.log(ingredient.name));
 // }
 
-window.SpeechRecognition =
+SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if ("SpeechRecognition" in window) {
+  console.log("Speech recognition API supported");
+} else {
+  console.log("Speech recognition API not supported");
+}
 
 const recognition = new SpeechRecognition();
 
@@ -107,9 +112,8 @@ recognition.addEventListener("result", e => {
     let category = btnIngredient.parentNode.id;
     if (transcript.includes(choice)) {
       buildBurger(choice, category, false);
-    } 
+    }
   });
-
 });
 
 function listenToggle() {
